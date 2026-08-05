@@ -30,6 +30,7 @@ frontend/.vite/
 
 # --- IDEs (fora das pastas de projeto) ---
 .DS_Store
+.vscode/
 
 # --- Segredos genéricos ---
 .env
