@@ -9,22 +9,29 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.juliodalpiaz</groupId>
-	<artifactId>backend</artifactId>
+	<artifactId>reviewhub</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
+	<name>reviewhub</name>
+	<description>Fullstack platform to rate and review movies and games</description>
+	<url>https://github.com/JulioDalpiaz/reviewhub</url>
 	<licenses>
-		<license/>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
 	</licenses>
 	<developers>
-		<developer/>
+		<developer>
+			<id>JulioDalpiaz</id>
+			<name>Júlio Dalpiaz</name>
+			<url>https://github.com/JulioDalpiaz</url>
+		</developer>
 	</developers>
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:git@github.com:JulioDalpiaz/reviewhub.git</connection>
+		<developerConnection>scm:git:git@github.com:JulioDalpiaz/reviewhub.git</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/JulioDalpiaz/reviewhub</url>
 	</scm>
 	<properties>
 		<java.version>21</java.version>

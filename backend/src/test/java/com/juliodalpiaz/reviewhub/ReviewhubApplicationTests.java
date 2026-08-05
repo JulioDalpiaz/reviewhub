@@ -1,10 +1,10 @@
-package com.juliodalpiaz.backend;
+package com.juliodalpiaz.reviewhub;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendApplicationTests {
+class ReviewhubApplicationTests {
 
 	@Test
 	void contextLoads() {
