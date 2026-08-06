@@ -26,7 +26,31 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public ResponseEntity<Map<String, String>> handleViolation(){
-    return new ResponseEntity<>(Map.of("message", "Data integrity violation"), HttpStatus.CONFLICT);
+  public ResponseEntity<Map<String, String>> handleViolation(DataIntegrityViolationException e){
+    // Check if this is a duplicate/unique key violation
+    if (isDuplicateKeyViolation(e)) {
+      return new ResponseEntity<>(Map.of("message", "Duplicate value: resource already exists"), HttpStatus.CONFLICT);
+    }
+    // Other integrity violations (NOT NULL, foreign key, check constraints, etc.)
+    return new ResponseEntity<>(Map.of("message", "Data integrity violation"), HttpStatus.BAD_REQUEST);
+  }
+
+  private boolean isDuplicateKeyViolation(DataIntegrityViolationException e) {
+    Throwable cause = e.getCause();
+    while (cause != null) {
+      String message = cause.getMessage();
+      if (message != null) {
+        String lowerMessage = message.toLowerCase();
+        // Check for common duplicate/unique key indicators
+        if (lowerMessage.contains("duplicate") ||
+            lowerMessage.contains("unique constraint") ||
+            lowerMessage.contains("unique index") ||
+            lowerMessage.contains("constraint violation")) {
+          return true;
+        }
+      }
+      cause = cause.getCause();
+    }
+    return false;
   }
 }
