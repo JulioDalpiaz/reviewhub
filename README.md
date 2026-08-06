@@ -114,8 +114,10 @@ reviewhub/
 
 ## Roadmap
 - [x] Entity modeling and relationships
-- [x] CRUD for categories (in progress)
-- [ ] CRUD for media, reviews
+- [x] CRUD for categories
+- [ ] CRUD for media (in progress)
+- [ ] Pagination, filters and sorting in media
+- [ ] CRUD for reviews
 - [ ] JWT authentication and authorization
 - [ ] Automated tests
 - [ ] Frontend integration
