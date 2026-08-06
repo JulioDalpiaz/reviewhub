@@ -40,9 +40,11 @@ public class CategoryService {
     return CategoryResponse.from(existing);
   }
 
+  @Transactional
   public void deleteCategory(UUID id){
     Category existing = categoryRepository.findById(id)
     .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + id));
+    existing.getMedias().forEach(m -> m.getCategories().remove(existing));
     categoryRepository.delete(existing);
   }
 }
