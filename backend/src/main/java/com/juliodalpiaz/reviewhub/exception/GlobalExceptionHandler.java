@@ -27,6 +27,6 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(DataIntegrityViolationException.class)
   public ResponseEntity<Map<String, String>> handleViolation(){
-    return new ResponseEntity<>(Map.of("message", "Duplicate value for a unique field"), HttpStatus.CONFLICT);
+    return new ResponseEntity<>(Map.of("message", "Data integrity violation"), HttpStatus.CONFLICT);
   }
 }
