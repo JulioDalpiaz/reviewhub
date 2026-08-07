@@ -34,7 +34,8 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(ResponseStatusException.class)
   public ResponseEntity<Map<String, String>> handleResponseStatus(ResponseStatusException e){
-    return new ResponseEntity<>(Map.of("message", e.getReason()), e.getStatusCode());
+    String reason = e.getReason() != null ? e.getReason() : "Request failed";
+    return new ResponseEntity<>(Map.of("message", reason), e.getStatusCode());
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)

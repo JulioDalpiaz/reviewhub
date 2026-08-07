@@ -29,7 +29,7 @@ public class Media {
   @Enumerated(EnumType.STRING)
   private MediaType type;
   @Column(name = "release_year", nullable = false)
-  private Integer releaseYear;
+  private int releaseYear;
   @Column(nullable = false)
   private String synopsis;
 

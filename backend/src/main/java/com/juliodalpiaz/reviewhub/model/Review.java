@@ -21,7 +21,7 @@ public class Review {
   private UUID id;
 
   @Column(nullable = false)
-  private Double rating;
+  private double rating;
   @Column(nullable = false)
   private String text;
   @CreationTimestamp
