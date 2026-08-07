@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +32,10 @@ public class Media {
   @Enumerated(EnumType.STRING)
   private MediaType type;
   @Column(name = "release_year", nullable = false)
-  private int releaseYear;
+  @NotNull
+  @Min(1888)
+  @Max(2100)
+  private Integer releaseYear;
   @Column(nullable = false)
   private String synopsis;
 
