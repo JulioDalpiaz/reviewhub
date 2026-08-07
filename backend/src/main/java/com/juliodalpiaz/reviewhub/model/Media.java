@@ -5,14 +5,18 @@ import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "media")
 public class Media {
   @Id
@@ -22,9 +26,10 @@ public class Media {
   @Column(nullable = false, unique = true)
   private String title;
   @Column(nullable = false)
-  private String type;
+  @Enumerated(EnumType.STRING)
+  private MediaType type;
   @Column(name = "release_year", nullable = false)
-  private int releaseYear;
+  private Integer releaseYear;
   @Column(nullable = false)
   private String synopsis;
 
@@ -34,8 +39,11 @@ public class Media {
     joinColumns = @JoinColumn(name = "media_id"),
     inverseJoinColumns = @JoinColumn(name = "category_id")
   )
+  
+  @Builder.Default
   private Set<Category> categories = new HashSet<>();
 
+  @Builder.Default
   @OneToMany(mappedBy = "media")
   private Set<Review> reviews = new HashSet<>();
 }
