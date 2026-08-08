@@ -116,8 +116,8 @@ reviewhub/
 - [x] Entity modeling and relationships
 - [x] CRUD for categories
 - [x] CRUD for media
-- [ ] Pagination, filters and sorting in media (in progress)
-- [ ] CRUD for reviews
+- [x] Pagination, filters and sorting in media
+- [ ] CRUD for reviews (in progress)
 - [ ] JWT authentication and authorization
 - [ ] Automated tests
 - [ ] Frontend integration
