@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.core.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,10 +53,5 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException e){
     return new ResponseEntity<>(Map.of("message", "Invalid value for parameter '" + e.getName() + "'"), HttpStatus.BAD_REQUEST);
-  }
-
-  @ExceptionHandler(InvalidDataAccessApiUsageException.class)
-  public ResponseEntity<Map<String, String>> handleInvalidDataAccess(InvalidDataAccessApiUsageException e){
-    return new ResponseEntity<>(Map.of("message", "Invalid sort property"), HttpStatus.BAD_REQUEST);
   }
 }

@@ -17,12 +17,12 @@ public interface MediaRepository extends JpaRepository<Media, UUID> {
 
   @Query(value = """
       SELECT DISTINCT new com.juliodalpiaz.reviewhub.dto.MediaSummary(m.id, m.title, m.type, m.releaseYear)
-      FROM Media m JOIN m.categories c
+      FROM Media m LEFT JOIN m.categories c
       WHERE (:type IS NULL OR m.type = :type) AND (:categoryId IS NULL OR c.id = :categoryId)
       """,
       countQuery = """
       SELECT COUNT(DISTINCT m)
-      FROM Media m JOIN m.categories c
+      FROM Media m LEFT JOIN m.categories c
       WHERE (:type IS NULL OR m.type = :type) AND (:categoryId IS NULL OR c.id = :categoryId)
       """)
   Page<MediaSummary> findAllSummaries(@Param("type") MediaType type, @Param("categoryId") UUID categoryId, Pageable pageable);

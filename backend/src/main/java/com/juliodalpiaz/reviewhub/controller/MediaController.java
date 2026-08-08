@@ -1,9 +1,11 @@
 package com.juliodalpiaz.reviewhub.controller;
 
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +37,23 @@ import lombok.RequiredArgsConstructor;
 public class MediaController {
   private final MediaService mediaService;
 
+  private static final Set<String> SORTABLE_FIELDS = Set.of("title", "type", "releaseYear");
+
   @GetMapping
   public Page<MediaSummary> listAllMedias(@RequestParam(required = false) MediaType type, @RequestParam(required = false) UUID categoryId, @RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size, @PageableDefault(size=10, sort="title") Pageable pageable){
     if (page != null && page < 0)
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "page must be at least 0");
     if (size != null && size < 1)
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "size must be at least 1");
-
+    if (pageable.getSort().isSorted()) {
+      for (Order order : pageable.getSort()) {
+        if (!SORTABLE_FIELDS.contains(order.getProperty())) {
+          throw new ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "Invalid sort property: '" + order.getProperty() + "'");
+        }
+      }
+    }
     return mediaService.listAllMedias(type, categoryId, pageable);
   }
 
