@@ -117,6 +117,7 @@ reviewhub/
 - [x] CRUD for categories
 - [x] CRUD for media
 - [x] Pagination, filters and sorting in media
+- [x] Search media by title
 - [ ] CRUD for reviews (in progress)
 - [ ] JWT authentication and authorization
 - [ ] Automated tests
