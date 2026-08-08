@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.core.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,7 +30,7 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public ResponseEntity<Map<String, String>> handleViolation(){
+  public ResponseEntity<Map<String, String>> handleDataViolation(){
     return new ResponseEntity<>(Map.of("message", "Data integrity violation"), HttpStatus.CONFLICT);
   }
 
@@ -41,5 +43,15 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<Map<String, String>> handleNotReadable(){
     return new ResponseEntity<>(Map.of("message", "Invalid or malformed request body"), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(PropertyReferenceException.class)
+  public ResponseEntity<Map<String, String>> handlePropertyReference(PropertyReferenceException e){
+    return new ResponseEntity<>(Map.of("message", "Invalid sort property"), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException e){
+    return new ResponseEntity<>(Map.of("message", "Invalid value for parameter '" + e.getName() + "'"), HttpStatus.BAD_REQUEST);
   }
 }

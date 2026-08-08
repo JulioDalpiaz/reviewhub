@@ -1,11 +1,12 @@
 package com.juliodalpiaz.reviewhub.service;
 
 import com.juliodalpiaz.reviewhub.repository.CategoryRepository;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +14,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.juliodalpiaz.reviewhub.dto.MediaRequest;
 import com.juliodalpiaz.reviewhub.dto.MediaResponse;
+import com.juliodalpiaz.reviewhub.dto.MediaSummary;
 import com.juliodalpiaz.reviewhub.exception.ResourceNotFoundException;
 import com.juliodalpiaz.reviewhub.model.Category;
 import com.juliodalpiaz.reviewhub.model.Media;
+import com.juliodalpiaz.reviewhub.model.MediaType;
 import com.juliodalpiaz.reviewhub.repository.MediaRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,10 +37,8 @@ public class MediaService {
   }
 
   @Transactional(readOnly = true)
-  public List<MediaResponse> listAllMedias(){
-    return mediaRepository.findAll().stream()
-      .map(MediaResponse::from)
-      .toList();
+  public Page<MediaSummary> listAllMedias(MediaType type, UUID categoryId, Pageable pageable){
+    return mediaRepository.findAllSummaries(type, categoryId, pageable);
   }
 
   @Transactional(readOnly = true)
