@@ -37,8 +37,10 @@ public class MediaService {
   }
 
   @Transactional(readOnly = true)
-  public Page<MediaSummary> listAllMedias(MediaType type, UUID categoryId, Pageable pageable){
-    return mediaRepository.findAllSummaries(type, categoryId, pageable);
+  public Page<MediaSummary> listAllMedias(MediaType type, UUID categoryId, String title, Pageable pageable){
+    String normalizedTitle = (title == null || title.isBlank()) ? null : title.strip();
+
+    return mediaRepository.findAllSummaries(type, categoryId, normalizedTitle, pageable);
   }
 
   @Transactional(readOnly = true)

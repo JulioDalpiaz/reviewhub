@@ -40,7 +40,7 @@ public class MediaController {
   private static final Set<String> SORTABLE_FIELDS = Set.of("title", "type", "releaseYear");
 
   @GetMapping
-  public Page<MediaSummary> listAllMedias(@RequestParam(required = false) MediaType type, @RequestParam(required = false) UUID categoryId, @RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size, @PageableDefault(size=10, sort="title") Pageable pageable){
+  public Page<MediaSummary> listAllMedias(@RequestParam(required = false) MediaType type, @RequestParam(required = false) UUID categoryId, @RequestParam(required=false) String title, @RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size, @PageableDefault(size=10, sort="title") Pageable pageable){
     if (page != null && page < 0)
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "page must be at least 0");
     if (size != null && size < 1)
@@ -54,7 +54,7 @@ public class MediaController {
         }
       }
     }
-    return mediaService.listAllMedias(type, categoryId, pageable);
+    return mediaService.listAllMedias(type, categoryId, title, pageable);
   }
 
   @GetMapping("/{id}")

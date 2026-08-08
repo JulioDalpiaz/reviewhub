@@ -37,7 +37,7 @@ ReviewHub lets users browse movies and games, write reviews, rate them, and orga
 ### Media
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/media` | List media (paginated, filterable by type/category) |
+| GET | `/media` | List media (paginated, filterable by type/category/title) |
 | GET | `/media/{id}` | Get media details, including average rating |
 | POST | `/media` | Create media (admin only) |
 | PUT | `/media/{id}` | Update media (admin only) |
@@ -117,6 +117,7 @@ reviewhub/
 - [x] CRUD for categories
 - [x] CRUD for media
 - [x] Pagination, filters and sorting in media
+- [x] Search media by title
 - [ ] CRUD for reviews (in progress)
 - [ ] JWT authentication and authorization
 - [ ] Automated tests
