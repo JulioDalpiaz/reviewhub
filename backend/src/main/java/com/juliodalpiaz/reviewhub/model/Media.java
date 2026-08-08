@@ -32,9 +32,9 @@ public class Media {
   @Enumerated(EnumType.STRING)
   private MediaType type;
   @Column(name = "release_year", nullable = false)
-  @NotNull(message = "Year is required")
-  @Min(value = 1888, message = "Year must be at least 1888")
-  @Max(value = 2100, message = "Year must be at most 2100")
+  @NotNull
+  @Min(1888)
+  @Max(2100)
   private Integer releaseYear;
   @Column(nullable = false)
   private String synopsis;
